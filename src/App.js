@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import {Admin, ListGuesser, Resource, CustomRoutes} from "react-admin";
+import simpleRestProvider from "ra-data-simple-rest";
+import {Route} from "react-router-dom";
+import Login from "./components/pages/Login";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import authProvider from './authProvider';
+
+const dataProvider = simpleRestProvider("http://one-click-api.local/api");
+
+const App = () => (
+    <>
+        <Admin dataProvider={dataProvider} loginPage={<Login/>} authProvider={authProvider}>
+
+            <CustomRoutes>
+                <Route path="/register" element={<Login />} />
+            </CustomRoutes>
+        </Admin>
+    </>
+);
 
 export default App;
